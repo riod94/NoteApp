@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar, useColorScheme} from 'react-native';
+import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NativeBaseProvider} from 'native-base';
@@ -11,19 +11,18 @@ const {Navigator, Screen} = createNativeStackNavigator();
 const MainNavigator = () => (
   <Navigator initialRouteName="Main">
     <Screen name="Main" component={MainScreen} options={{headerShown: false}} />
-    <Screen name="Note" component={NoteScreen} />
+    <Screen name="Note" component={NoteScreen} options={{headerShown: false}} />
   </Navigator>
 );
 
 function AppNavigator() {
-  const scheme = useColorScheme();
   return (
     <NativeBaseProvider theme={theme}>
       <StatusBar
         barStyle="dark-content"
         backgroundColor={theme.colors.primary[500]}
       />
-      <NavigationContainer>
+      <NavigationContainer independent={true}>
         <MainNavigator />
       </NavigationContainer>
     </NativeBaseProvider>

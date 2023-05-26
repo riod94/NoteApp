@@ -13,6 +13,8 @@ import {
   View,
 } from 'native-base';
 import {useFocusEffect} from '@react-navigation/core';
+import {AppBar} from '../components';
+import {DateChanger} from '../utils';
 
 const MainScreen = ({navigation}) => {
   const [notes, setNotes] = React.useState([]);
@@ -29,15 +31,15 @@ const MainScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.flex}>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Text>NoteApp</Text>
-        </View>
+      <AppBar title={'Halo, ' + DateChanger.Greetings()} />
+      <View flex={1} px={3}>
         {notes?.length > 0 ? (
           <FlatList
             data={notes}
-            renderItem={({item}) => (
-              <Pressable onPress={() => handleAddOrEditNote(item)}>
+            renderItem={({item, index}) => (
+              <Pressable
+                onPress={() => handleAddOrEditNote(item)}
+                mb={index === notes.length - 1 ? 16 : 0}>
                 {({isHovered, isFocused, isPressed}) => (
                   <Box
                     bg={
@@ -61,10 +63,12 @@ const MainScreen = ({navigation}) => {
                     my={2}
                     mx={1}>
                     <VStack space={1}>
-                      <Text bold isTruncated>
-                        {item.title}
-                      </Text>
-                      <Text isTruncated>{item.content}</Text>
+                      {item.title && (
+                        <Text bold isTruncated>
+                          {item.title}
+                        </Text>
+                      )}
+                      {item.content && <Text isTruncated>{item.content}</Text>}
                       <Text italic fontSize="xs" color="coolGray.400">
                         {new Date(item.updatedAt).toLocaleString()}
                       </Text>
