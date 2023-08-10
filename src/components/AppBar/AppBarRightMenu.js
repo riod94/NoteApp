@@ -7,6 +7,7 @@ function AppBarRightMenu({items}) {
   if (items?.length === 0) {
     return null;
   }
+  console.log(items);
   if (items?.length >= 3) {
     return (
       <Popover

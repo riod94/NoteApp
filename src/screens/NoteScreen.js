@@ -1,37 +1,71 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform} from 'react-native';
 import {createNote, deleteNote, updateNote} from '../utils/storage';
 import PushNotification from 'react-native-push-notification';
 import {
-  Button,
   CheckIcon,
-  ChevronRightIcon,
   DeleteIcon,
-  HStack,
   Input,
-  Text,
   View,
   KeyboardAvoidingView,
 } from 'native-base';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AppBar from '../components/AppBar';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../styles/theme';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+/**
+ * Renders the NoteScreen component which displays a form for editing and saving notes.
+ *
+ * @param {object} navigation - The navigation object with methods for navigating between screens.
+ * @param {object} route - The route object containing the note data to be edited.
+ * @return {JSX.Element} A React component representing the NoteScreen view.
+ */
 function NoteScreen({navigation, route}) {
   let hasUnsavedChanges = false;
   const [state, setState] = useState({
-    title: route.params.note.title || '',
-    content: route.params.note.content || '',
-    reminder: route.params.note.reminder || false,
-    reminderDate: route.params.note.reminderDate || new Date(),
+    title: route?.params?.note?.title || '',
+    content: route?.params?.note?.content || '',
+    reminder: route?.params?.note?.reminder || false,
+    reminderDate: route?.params?.note?.reminderDate || new Date(),
   });
   const [showPicker, setShowPicker] = useState(false);
+  const [unsaved, setUnsaved] = useState(false);
+  const [rightAction, setRightAction] = useState([]);
+
+  useEffect(() => {
+    setRightAction([
+      {
+        name: 'Delete',
+        icon: <DeleteIcon size={4} color={theme.colors.danger[500]} />,
+        onPress: handleDeleteNote,
+        color: theme.colors.danger[500],
+      },
+    ]);
+
+    return () => {
+      setRightAction([]);
+    };
+  }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleStateChange = (key, value) => {
+    setUnsaved(true);
     setState({...state, [key]: value});
+    setRightAction([
+      {
+        name: 'Delete',
+        icon: <DeleteIcon size={4} color={theme.colors.danger[500]} />,
+        onPress: handleDeleteNote,
+        color: theme.colors.danger[500],
+      },
+      {
+        name: 'Save',
+        icon: <CheckIcon size={4} color={theme.colors.info[500]} />,
+        onPress: handleSaveNote,
+        color: theme.colors.info[500],
+      },
+    ]);
     hasUnsavedChanges = true;
   };
 
@@ -45,14 +79,14 @@ function NoteScreen({navigation, route}) {
         state.content,
         state.reminder,
         dateReminder,
-      ).then(() => {
+      ).then(res => {
         if (state.reminder) {
           // TODO: Handle reminder & set local notification
         } else {
           // TODO: Handle clear local notification
         }
         hasUnsavedChanges = false;
-        navigation.goBack();
+        // navigation.goBack();
       });
     } else {
       createNote(state.title, state.content, state.reminder, dateReminder).then(
@@ -63,10 +97,19 @@ function NoteScreen({navigation, route}) {
             // TODO: Handle clear local notification
           }
           hasUnsavedChanges = false;
-          navigation.goBack();
+          // navigation.goBack();
         },
       );
     }
+    setUnsaved(false);
+    setRightAction([
+      {
+        name: 'Delete',
+        icon: <DeleteIcon size={4} color={theme.colors.danger[500]} />,
+        onPress: handleDeleteNote,
+        color: theme.colors.danger[500],
+      },
+    ]);
   };
 
   const handleDeleteNote = () => {
@@ -93,36 +136,7 @@ function NoteScreen({navigation, route}) {
 
   return (
     <SafeAreaView style={{flex: 1}} backgroundColor="#fff">
-      <AppBar
-        title="Notes"
-        backButton
-        rightItems={[
-          // {
-          //   name: 'Reminder Me',
-          //   icon: (
-          //     <MaterialCommunityIcons
-          //       name="timer-cog"
-          //       color={theme.colors.info[500]}
-          //       size={20}
-          //     />
-          //   ),
-          //   onPress: () => setShowPicker(true),
-          //   color: theme.colors.info[500],
-          // },
-          {
-            name: 'Delete',
-            icon: <DeleteIcon size={4} color={theme.colors.danger[500]} />,
-            onPress: handleDeleteNote,
-            color: theme.colors.danger[500],
-          },
-          {
-            name: 'Save',
-            icon: <CheckIcon size={4} color={theme.colors.info[500]} />,
-            onPress: handleSaveNote,
-            color: theme.colors.info[500],
-          },
-        ]}
-      />
+      <AppBar title="Notes" backButton rightItems={rightAction} />
 
       <KeyboardAvoidingView
         flex={1}
