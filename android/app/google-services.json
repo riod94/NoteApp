@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "441110871412",
+    "project_id": "denote-apps",
+    "storage_bucket": "denote-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441110871412:android:450a6783ce0d1ea6d90021",
+        "android_client_info": {
+          "package_name": "com.denote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441110871412-opsr503doav6p7l7u1ld114smg6ojtjt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA72OwEQI2n_-zEfIngBaJtMxS8vZbQML4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441110871412-opsr503doav6p7l7u1ld114smg6ojtjt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

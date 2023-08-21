@@ -9,7 +9,13 @@ function getNotes() {
         console.error(err);
         reject(err);
       }
-      resolve(result ? JSON.parse(result) : []);
+      let notes = result ? JSON.parse(result) : [];
+      notes = notes.sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      );
+
+      resolve(notes);
     });
   });
 }

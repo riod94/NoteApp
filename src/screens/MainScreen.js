@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {getNotes} from '../utils/storage';
@@ -17,11 +17,15 @@ import {AppBar} from '../components';
 import {DateChanger} from '../utils';
 
 const MainScreen = ({navigation}) => {
-  const [notes, setNotes] = React.useState([]);
+  const [loading, setLoading] = useState(true);
+  const [notes, setNotes] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
-      getNotes().then(setNotes);
+      setTimeout(() => {
+        getNotes().then(setNotes);
+        setLoading(false);
+      }, 500);
     }, []),
   );
 
@@ -81,7 +85,7 @@ const MainScreen = ({navigation}) => {
           />
         ) : (
           <View style={styles.emptyState}>
-            <Text>You have not created any not yet</Text>
+            {!loading && <Text>You have not created any not yet</Text>}
           </View>
         )}
       </View>

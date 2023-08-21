@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "NoteApp.app"
-               BlueprintName = "NoteApp"
-               ReferencedContainer = "container:NoteApp.xcodeproj">
+               BuildableName = "Denote.app"
+               BlueprintName = "Denote"
+               ReferencedContainer = "container:Denote.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "NoteAppTests.xctest"
-               BlueprintName = "NoteAppTests"
-               ReferencedContainer = "container:NoteApp.xcodeproj">
+               BuildableName = "DenoteTests.xctest"
+               BlueprintName = "DenoteTests"
+               ReferencedContainer = "container:Denote.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "NoteApp.app"
-            BlueprintName = "NoteApp"
-            ReferencedContainer = "container:NoteApp.xcodeproj">
+            BuildableName = "Denote.app"
+            BlueprintName = "Denote"
+            ReferencedContainer = "container:Denote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "NoteApp.app"
-            BlueprintName = "NoteApp"
-            ReferencedContainer = "container:NoteApp.xcodeproj">
+            BuildableName = "Denote.app"
+            BlueprintName = "Denote"
+            ReferencedContainer = "container:Denote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
